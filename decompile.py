@@ -28,8 +28,20 @@ def download_cfr():
         urllib.request.urlretrieve(CFR_JAR_URL, CFR_JAR_NAME)
         print(f"Successfully downloaded {CFR_JAR_NAME}")
         return CFR_JAR_NAME
+    except urllib.error.HTTPError as e:
+        print(f"HTTP Error downloading CFR: {e.code} {e.reason}")
+        print(f"URL: {CFR_JAR_URL}")
+        sys.exit(1)
+    except urllib.error.URLError as e:
+        print(f"Network error downloading CFR: {e.reason}")
+        print(f"Please check your internet connection and try again.")
+        sys.exit(1)
+    except PermissionError:
+        print(f"Permission denied: Cannot write to {CFR_JAR_NAME}")
+        print(f"Please check file permissions or try running from a different directory.")
+        sys.exit(1)
     except Exception as e:
-        print(f"Error downloading CFR: {e}")
+        print(f"Unexpected error downloading CFR: {e}")
         sys.exit(1)
 
 
@@ -74,16 +86,16 @@ def decompile_jar(jar_file, output_dir=None, options=None):
     print(f"Command: {' '.join(cmd)}")
     
     try:
-        result = subprocess.run(cmd, check=True, capture_output=True, text=True)
-        print(result.stdout)
+        # For large JARs, stream output instead of capturing in memory
+        result = subprocess.run(cmd, check=True, stderr=subprocess.PIPE, text=True)
         if result.stderr:
-            print("Warnings/Errors:", result.stderr)
+            print("CFR output:", result.stderr)
         print(f"\nDecompilation complete! Files saved to: {output_dir}")
         return True
     except subprocess.CalledProcessError as e:
         print(f"Error during decompilation: {e}")
-        print(f"stdout: {e.stdout}")
-        print(f"stderr: {e.stderr}")
+        if e.stderr:
+            print(f"Error details: {e.stderr}")
         return False
     except FileNotFoundError:
         print("Error: Java is not installed or not in PATH")

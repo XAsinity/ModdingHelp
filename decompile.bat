@@ -29,7 +29,7 @@ echo Output will be saved to: decompiled\%JAR_NAME%\
 echo.
 
 REM Run the decompiler
-python decompile.py "%JAR_FILE%"
+python3 decompile.py "%JAR_FILE%"
 
 if %ERRORLEVEL% EQU 0 (
     echo.
