@@ -86,7 +86,8 @@ def decompile_jar(jar_file, output_dir=None, options=None):
     print(f"Command: {' '.join(cmd)}")
     
     try:
-        # For large JARs, stream output instead of capturing in memory
+        # Stream stdout (decompiled code) directly to files, only capture stderr for error reporting
+        # This prevents memory issues with large JARs while preserving diagnostic information
         result = subprocess.run(cmd, check=True, stderr=subprocess.PIPE, text=True)
         if result.stderr:
             print("CFR output:", result.stderr)
