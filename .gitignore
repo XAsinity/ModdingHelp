@@ -1,0 +1,44 @@
+# Decompiled output
+decompiled/
+output/
+*.decompiled/
+
+# CFR Decompiler JAR (downloaded automatically)
+cfr-*.jar
+
+# JAR files (optional - uncomment if you don't want to track jar files)
+# *.jar
+
+# Build artifacts
+build/
+dist/
+target/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+.project
+.classpath
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
+*.swp
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+env/
+
+# Node
+node_modules/
