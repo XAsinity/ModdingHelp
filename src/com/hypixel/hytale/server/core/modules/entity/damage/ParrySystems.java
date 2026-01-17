@@ -76,9 +76,6 @@ public class ParrySystems {
                 return;
             }
 
-            // The defender is the entity being damaged (current entity in the chunk)
-            Ref<EntityStore> defenderRef = archetypeChunk.getReferenceTo(index);
-
             // Apply stunned effect to the attacker
             this.applyStunnedEffect(attackerRef, commandBuffer);
         }
