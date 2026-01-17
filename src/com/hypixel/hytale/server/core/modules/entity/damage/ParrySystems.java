@@ -15,7 +15,6 @@ import com.hypixel.hytale.server.core.asset.type.entityeffect.config.OverlapBeha
 import com.hypixel.hytale.server.core.entity.damage.DamageDataComponent;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.modules.entity.AllLegacyLivingEntityTypesQuery;
-import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
@@ -31,8 +30,6 @@ public class ParrySystems {
      */
     public static class DamageFilterParry
     extends DamageEventSystem {
-        @Nonnull
-        private static final ComponentType<EntityStore, TransformComponent> TRANSFORM_COMPONENT_TYPE = TransformComponent.getComponentType();
         @Nonnull
         private static final Query<EntityStore> QUERY = Query.and(AllLegacyLivingEntityTypesQuery.INSTANCE, DamageDataComponent.getComponentType(), EffectControllerComponent.getComponentType());
         private static final String STUNNED_EFFECT_ID = "Stunned";
@@ -83,7 +80,7 @@ public class ParrySystems {
             Ref<EntityStore> defenderRef = archetypeChunk.getReferenceTo(index);
 
             // Apply stunned effect to the attacker
-            this.applyStunnedEffect(attackerRef, defenderRef, commandBuffer);
+            this.applyStunnedEffect(attackerRef, commandBuffer);
         }
 
         /**
@@ -91,10 +88,9 @@ public class ParrySystems {
          * The stunned effect disables movement and interactions for a specified duration.
          * 
          * @param attackerRef Reference to the attacking entity
-         * @param defenderRef Reference to the defending entity (for potential future use)
          * @param commandBuffer The command buffer for entity modifications
          */
-        private void applyStunnedEffect(@Nonnull Ref<EntityStore> attackerRef, @Nonnull Ref<EntityStore> defenderRef, @Nonnull CommandBuffer<EntityStore> commandBuffer) {
+        private void applyStunnedEffect(@Nonnull Ref<EntityStore> attackerRef, @Nonnull CommandBuffer<EntityStore> commandBuffer) {
             // Get the effect controller component from the attacker
             EffectControllerComponent effectController = commandBuffer.getComponent(attackerRef, EffectControllerComponent.getComponentType());
             if (effectController == null) {
