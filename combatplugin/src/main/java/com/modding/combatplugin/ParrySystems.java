@@ -1,11 +1,7 @@
-/*
- * Decompiled with CFR 0.152.
- */
-package com.hypixel.hytale.server.core.modules.entity.damage;
+package com.modding.combatplugin;
 
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
-import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.SystemGroup;
