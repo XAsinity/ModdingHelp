@@ -18,6 +18,7 @@ import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathSystems;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeferredCorpseRemoval;
+import com.hypixel.hytale.server.core.modules.entity.damage.ParrySystems;
 import com.hypixel.hytale.server.core.modules.entity.damage.RespawnSystems;
 import com.hypixel.hytale.server.core.modules.entity.damage.commands.DesyncDamageCommand;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
@@ -83,6 +84,7 @@ extends JavaPlugin {
         entityStoreRegistry.registerSystem(new DamageSystems.PlayerHitIndicators());
         entityStoreRegistry.registerSystem(new DamageSystems.ReticleEvents());
         entityStoreRegistry.registerSystem(new DamageSystems.EntityUIEvents());
+        entityStoreRegistry.registerSystem(new ParrySystems.DamageFilterParry());
         entityStoreRegistry.registerSystem(new KnockbackSystems.ApplyKnockback());
         entityStoreRegistry.registerSystem(new KnockbackSystems.ApplyPlayerKnockback());
         entityStoreRegistry.registerSystem(new DeathSystems.ClearHealth());
